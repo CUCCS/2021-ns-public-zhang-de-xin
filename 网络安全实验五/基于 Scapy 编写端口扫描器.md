@@ -85,27 +85,27 @@ sudo ufw allow 22
 
 1. 检查受害者机的端口情况
 
-   ![1](D:\vb专用\网络安全实验五\1.png)
+   ![1](1.png)
 
 2. 运行`TCP_connect_scan.py`文件进行TCP连接扫描，可以得到22端口为**开放**状态：
 
-   <img src="D:\vb专用\网络安全实验五\2.png" alt="2" style="zoom:80%;" />
+   <img src="2.png" alt="2" style="zoom:80%;" />
 
 3. 查看22端口详情，关闭对应的服务（关闭端口），再次进行端口扫描，显示端口为**关闭**状态：
 
-   ![3](D:\vb专用\网络安全实验五\3.png)
+   ![3](3.png)
 
-   <img src="D:\vb专用\网络安全实验五\4.png" alt="4" style="zoom:80%;" />
+   <img src="4.png" alt="4" style="zoom:80%;" />
 
 4. 安装并开启防火墙，防火墙默认是不允许所有外部访问连接的。再次扫描，显示端口为**过滤**状态
 
-   <img src="D:\vb专用\网络安全实验五\5.png" alt="5" style="zoom:80%;" />
+   <img src="5.png" alt="5" style="zoom:80%;" />
 
 5. 启动ssh服务，开放22端口，再次扫描，显示端口为**开启**状态，其他端口为**过滤**状态
 
-   ![6](D:\vb专用\网络安全实验五\6.png)
+   ![6](6.png)
 
-   <img src="D:\vb专用\网络安全实验五\7.png" alt="7" style="zoom:80%;" />
+   <img src="7.png" alt="7" style="zoom:80%;" />
 
 #### TCP FIN scan
 
@@ -117,25 +117,25 @@ sudo ufw allow 22
 
 1. 承接前面扫描的环境（防火墙默认状态开启，22端口关闭，ssh服务开启（端口过滤））。运行`TCP_FIN_scan.py`文件进行fin扫描，得到如下**过滤**或**开放**状态
 
-   <img src="D:\vb专用\网络安全实验五\8.png" alt="8" style="zoom:80%;" />
+   <img src="8.png" alt="8" style="zoom:80%;" />
 
-   <img src="D:\vb专用\网络安全实验五\12.png" alt="12" style="zoom:80%;" />
+   <img src="12.png" alt="12" style="zoom:80%;" />
 
 2. 防火墙关闭，ssh服务关闭（端口关闭），再次扫描，得到**关闭**状态
 
-   ![9](D:\vb专用\网络安全实验五\9.png)
+   ![9](9.png)
 
-   <img src="D:\vb专用\网络安全实验五\10.png" alt="10" style="zoom:80%;" />
+   <img src="10.png" alt="10" style="zoom:80%;" />
 
 3. 防火墙关闭，ssh服务开放（端口开放），再次扫描，得到**开放或过滤**状态
 
-   <img src="D:\vb专用\网络安全实验五\11.png" alt="11" style="zoom:80%;" />
+   <img src="11.png" alt="11" style="zoom:80%;" />
 
    
 
 **问题**：有个问题，这种扫描有时候接收不到证明端口关闭的返回信息RST，导致客户端认为端口为开放或者过滤状态，有误差（不知道是不是脚本的问题，或者是网络的问题），在知乎看到如下说法：
 
-<img src="D:\vb专用\网络安全实验五\13.png" alt="13" style="zoom:80%;" />
+<img src="13.png" alt="13" style="zoom:80%;" />
 
 #### UDP scan
 
@@ -149,17 +149,17 @@ sudo ufw allow 22
 
 1. 防火墙默认状态开启，22端口关闭，ssh服务开启（端口过滤）。运行`UDP_scan.py`文件进行UDP扫描，得到如下**过滤**或**开放**状态（所有端口都是相同结果）
 
-   <img src="D:\vb专用\网络安全实验五\14.png" alt="14" style="zoom:80%;" />
+   <img src="14.png" alt="14" style="zoom:80%;" />
 
 2. 防火墙关闭，ssh服务关闭（端口关闭），再次扫描，得到**关闭**状态。（但是还是存在为收到ICMP包的情况，这种情况会判断为开放/过滤）
 
    （此处打印的verbose=0，未显示详细信息）
 
-   <img src="D:\vb专用\网络安全实验五\15.png" alt="15" style="zoom:80%;" />
+   <img src="15.png" alt="15" style="zoom:80%;" />
 
 3. 防火墙关闭，ssh服务开启（端口开放），再次扫描，得到**开启**状态。
 
-   <img src="D:\vb专用\网络安全实验五\16.png" alt="16" style="zoom:80%;" />
+   <img src="16.png" alt="16" style="zoom:80%;" />
 
 **问题**：（未开启防火墙，22端口的ssh服务开启）当不使用verbose=0参数时，closed出现的很多。当使用verbose=0参数时，Open|Filtered出现的很多，不知道为什么。其他代码并未修改。
 
